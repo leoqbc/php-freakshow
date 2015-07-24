@@ -51,13 +51,18 @@ class CrazyClosure implements \ArrayAccess
     }
 }
 
-$list = [1, 2, 3];
+//$var = Closure::bind(function () {
+//    return [1,2,3];
+//}, new stdClass)->__invoke();
 
 (new CrazyClosure(function($a, $b, $c){
-    echo $a, $b, $c;
-}, function($a, $b, $c){
+    echo 'In:', $a, $b, $c;
+}, function($a, $b, $c) {
     echo 'Out:', $a, $b, $c;
-}))[$list]; // Imprime 123Out:123
+}))[Closure::bind(function () {
+    return [1,2,3];
+}, new stdClass)->__invoke()]; // Imprime In:123Out:123
+
 
 // $bind = new BindClosure();
 
